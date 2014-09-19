@@ -1,5 +1,16 @@
 #Creating the deb packages for SecureDrop
 
+
+## Building a python pip wheel of dependencies
+
+```
+sudo apt-get install libssl-dev
+pip install wheel
+pip wheel -r requirements.txt
+```
+
+This results in a "wheelhouse" directory being created.
+
 ## Gathering OSSEC files
 
 OSSEC can be downloaded from their website or cloned from git. 
