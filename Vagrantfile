@@ -46,6 +46,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.define 'mon', autostart: false do |mon|
     mon.vm.box = "trusty64"
+    mon.vm.network :private_network, :ip => '192.168.33.90'
     mon.vm.box_url = "https://cloud-images.ubuntu.com/vagrant/trusty/current/trusty-server-cloudimg-amd64-vagrant-disk1.box"
     mon.vm.provision "ansible" do |ansible|
       ansible.playbook = "install_files/ansible-base/securedrop-mon.yml"
@@ -59,6 +60,9 @@ Vagrant.configure("2") do |config|
 
   config.vm.define 'app', autostart: false do |app|
     app.vm.box = "trusty64"
+    app.vm.network "forwarded_port", guest: 8080, host: 8080
+    app.vm.network :private_network, :ip => '192.168.33.91'
+    app.vm.network "forwarded_port", guest: 80, host: 8081
     app.vm.box_url = "https://cloud-images.ubuntu.com/vagrant/trusty/current/trusty-server-cloudimg-amd64-vagrant-disk1.box"
     app.vm.provision "ansible" do |ansible|
       ansible.playbook = "install_files/ansible-base/securedrop-app.yml"
