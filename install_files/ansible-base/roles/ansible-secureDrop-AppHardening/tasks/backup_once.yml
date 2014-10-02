@@ -1,0 +1,28 @@
+---
+
+- name: ensure backup_tmp_dir directory exists
+  file:
+    state=directory
+    path="{{ backup_tmp_dir }}/hiddenServices"
+    owner="root"
+    group="root"
+    mode=0700
+
+- name: copy all Tor Hidden Services key material
+  command: "cp -a {{ item }} {{ backup_tmp_dir }}/hiddenServices"
+  with_items: backupServiceDirs
+
+- name: copy config.py
+  command: "cp /var/www/securedrop/config.py {{ backup_tmp_dir }}"
+
+- name: tar the temporary backup directory
+  command: "tar -C {{ backup_tmp_dir }}/.. czf backupOnce.tgz ./{{ backup_tmp_dir }}"
+
+# get recipient gpg key id
+# ...
+# XXX
+#- name: gpg encrypt the backup tarball
+#  command: "gpg --homedir /var/lib/securedrop/keys --encrypt backupOnce.tgz"
+
+- name: cp backup tarball to XXX
+  command: "chdir={{ backup_tmp_dir }}/.. cp backupOnce.tgz "

@@ -1,5 +1,6 @@
 distro_id: "ubuntu"
 distro_codename: "trusty"
+backup_tmp_dir: /tmp/backup_once
 ossec_group: "ossec"
 ossec_config_path: "{{ ossec_root }}/etc/ossec.conf"
 ossec_package_name: "ossec-agent"
