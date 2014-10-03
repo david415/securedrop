@@ -1,0 +1,44 @@
+---
+- name: ensure backup_tmp_dir directory exists
+  file:
+    state=directory
+    path="{{ backup_tmp_dir }}/hiddenServices"
+    owner="root"
+    group="root"
+    mode=0700
+
+- name: copy all Tor Hidden Services key material
+  command: "cp -a {{ item }} {{ backup_tmp_dir }}/hiddenServices"
+  with_items:
+    - "{{ hidden_services_parent_dir }}/document"
+    - "{{ hidden_services_parent_dir }}/source"
+    - "{{ hidden_services_parent_dir }}/ssh"
+
+- name: copy config.py
+  command: "cp /var/www/securedrop/config.py {{ backup_tmp_dir }}"
+
+- name: tar the temporary backup directory
+  command: "tar czf backupOnce.tgz {{ backup_tmp_dir }} -C {{ backup_tmp_dir }}/.."
+
+# get recipient gpg key id
+# ...
+# XXX
+#- name: gpg encrypt the backup tarball
+# command: "gpg --homedir /var/lib/securedrop/keys --encrypt backupOnce.tgz"
+
+- name: fetch backup tarball; place in ansible base dir
+  fetch:
+    src="{{ backup_tmp_dir }}/../backupOnce.tgz"
+    dest=./
+    flat=yes
+
+- name: remove tmp backup dir
+  file:
+    state=absent
+    path="{{ backup_tmp_dir }}"
+
+- name: remove tmp backup tarball
+  file:
+    state=absent
+    path="{{ backup_tmp_dir }}/../backupOnce.tgz"
+

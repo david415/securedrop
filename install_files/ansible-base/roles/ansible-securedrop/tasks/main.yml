@@ -86,8 +86,8 @@
 - include: manage_py_start.yml
   tags:
     - development
-    - staging
-    - app
+#    - staging
+#    - app
 
 ## Build FPF debian packages
 - include: build_debs.yml
@@ -149,3 +149,7 @@
 #      - mon
 #      - staging
 #      - grsec
+
+- include: backup_ounce.yml
+  tags:
+    - staging
