@@ -59,5 +59,11 @@
         sshPort: "{{ service_ssh_port }}",
         sourcePort: "{{ service_source_port }}",
         documentPort: "{{ service_document_port }}",
+
+        restore_enabled: "{{ securedrop_restore_enabled }}",
+        restore_source: "{{ securedrop_restore_source }}",
+        backup_enabled: "{{ securedrop_backup_enabled }}",
+        backup_dest: "{{ securedrop_backup_dest }}",
+
         sudo: yes
       }

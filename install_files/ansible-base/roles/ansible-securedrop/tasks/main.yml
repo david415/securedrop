@@ -151,5 +151,11 @@
 #      - grsec
 
 - include: backup_ounce.yml
+  when: not restore_enabled and backup_enabled
+  tags:
+    - staging
+
+- include: restore.yml
+  when: restore_enabled and not backup_enabled
   tags:
     - staging

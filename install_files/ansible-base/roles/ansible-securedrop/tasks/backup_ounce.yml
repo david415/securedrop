@@ -20,12 +20,6 @@
 - name: tar the temporary backup directory
   command: "tar czf backupOnce.tgz {{ backup_tmp_dir }} -C {{ backup_tmp_dir }}/.."
 
-# get recipient gpg key id
-# ...
-# XXX
-#- name: gpg encrypt the backup tarball
-# command: "gpg --homedir /var/lib/securedrop/keys --encrypt backupOnce.tgz"
-
 - name: fetch backup tarball; place in ansible base dir
   fetch:
     src="{{ backup_tmp_dir }}/../backupOnce.tgz"
