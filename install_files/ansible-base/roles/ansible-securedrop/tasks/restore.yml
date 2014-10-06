@@ -1,0 +1,19 @@
+---
+
+- name: ensure tor hidden services directories exist
+  file:
+    state: directory
+    path: "{{ hidden_services_parent_dir }}/{{ item }}"
+    owner: debian-tor
+    group: debian-tor
+  with_items:
+    - "document"
+    - "source"
+    - "ssh"
+
+- name: restore tor hidden services key material
+  command: "cp -v {{ restore_source }}/hiddenServices/{{ item }}/* {{ hidden_services_parent_dir }}/{{ item }}/"
+  with_items:
+    - "document"
+    - "source"
+    - "ssh"
