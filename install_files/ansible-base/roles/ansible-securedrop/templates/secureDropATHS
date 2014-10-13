@@ -1,0 +1,2 @@
+HidServAuth {{ sshOnion.stdout }} {{ sshAuthValue }} # ssh
+HidServAuth {{ documentOnion.stdout }} {{ documentAuthValue }} # document
