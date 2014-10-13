@@ -1,2 +1,5 @@
-HidServAuth {{ sshOnion.stdout }} {{ sshAuthValue }} # ssh
-HidServAuth {{ documentOnion.stdout }} {{ documentAuthValue }} # document
+
+{% for line in sshOnion.stdout.split("\n") %}
+HidServAuth {{ line }}
+{% endfor %}
+HidServAuth {{ documentOnion.stdout }} {{ documentAuthValue }}

@@ -1,3 +1,2 @@
 source: {{ sourceHost }}:{{ service_source_port }}
-document: {{ documentOnion.stdout }}:{{ service_document_port }}
-ssh: {{ sshOnion.stdout }}:{{ service_ssh_port }}
+# not sure what other info goes here
